@@ -24,5 +24,5 @@ def get_info(n):
 armas_dict = dict(map(get_info, armas_elem))
 print(armas_dict)
 
-with open('freefire_armas_data.json', 'w') as outfile:
+with open('freefire_weapons_data.json', 'w') as outfile:
     json.dump(armas_dict, outfile)
