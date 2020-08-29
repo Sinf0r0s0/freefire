@@ -9,20 +9,20 @@ import lxml.html as parser
    
 """
 
-html_texto = requests.get('https://ff.garena.com/weapons/index/en/').content
-tree = parser.fromstring(html_texto)
-infos_na_tag_script = tree.xpath('//*[@id="weaponTpml"]/text()')[0]
-armas_elem = parser.fromstring(infos_na_tag_script).xpath('li')
+html_text = requests.get('https://ff.garena.com/weapons/index/en/').content
+tree = parser.fromstring(html_text)
+html_on_script_tag = tree.xpath('//*[@id="weaponTpml"]/text()')[0]
+weapon_elements = parser.fromstring(html_on_script_tag).xpath('li')
 
 
 def get_info(n):
-    _nome = n.xpath('./div/h4/span[1]/text()')[0]
-    _data = [n.xpath(f'./div/ul/li[{idx}]/div[2]/span[2]/text()')[0] for idx in range(1, 9)]
-    return _nome, _data
+    name = n.xpath('./div/h4/span[1]/text()')[0]
+    data = [int(n.xpath(f'./div/ul/li[{idx}]/div[2]/span[2]/text()')[0]) for idx in range(1, 9)]
+    return name, data
 
 
-armas_dict = dict(map(get_info, armas_elem))
-print(armas_dict)
+weapons_dict = dict(map(get_info, weapon_elements))
+print(weapons_dict)
 
 with open('freefire_weapons_data.json', 'w') as outfile:
-    json.dump(armas_dict, outfile)
+    json.dump(weapons_dict, outfile)
