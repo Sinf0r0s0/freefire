@@ -25,4 +25,4 @@ weapons_dict = dict(map(get_info, weapon_elements))
 print(weapons_dict)
 
 with open('freefire_weapons_data.json', 'w') as outfile:
-    json.dump(weapons_dict, outfile)
+    json.dump(weapons_dict, outfile, indent=4)
